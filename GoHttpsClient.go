@@ -177,7 +177,10 @@ func GoGetError(errorID int) *C.char {
 
 //export GoReleaseObject
 func GoReleaseObject(objectID int) {
-	setObject(objectID, nil)
+	mutex.Lock()
+	defer mutex.Unlock()
+
+	delete(objectMap, objectID)
 }
 
 func getClient(id int) (*http.Client, bool) {
