@@ -11,6 +11,7 @@ import (
 	"time"
 )
 import (
+	"net/http/cookiejar"
 	"unsafe"
 )
 
@@ -34,6 +35,7 @@ func GoCreateClient() (id int) {
 	id = allocateID()
 
 	client := &http.Client{}
+	client.Jar, _ = cookiejar.New(nil)
 	setObject(id, client)
 	return
 }
